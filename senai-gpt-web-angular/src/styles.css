@@ -1,7 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
 /* You can add global styles to this file, and also import other style files */
+
 * {
+
     padding: 0px;
     margin: 0px;
-    outline: none;
     box-sizing: border-box;
+    font-family: "Inter";
+
+}
+
+.inpt {
+
+    border-radius: 10px; /* Arredonda as bordas */
+    padding: 18px; /* Espaçamento interno */
+    border: 1px solid #ccc; /* Remove a borda */
+    background-color: #F7F9FB; /* Define a cor do fundo */
+    width: 377px; /*largura*/
+    margin-bottom: 16px;
+
+}
+
+.btn {
+
+    padding: 18px;
+    background-color: black;
+    color: white;
+    border: none; /*altura*/
+    width: 377px; /*largura*/
+    border-radius: 10px; /* Arredonda as bordas */
+    
+}
+
+button {
+
+    cursor: pointer;
+
+}
+
+.form-hint {
+
+    margin-top: 20px;
+    color: black;
+
 }
