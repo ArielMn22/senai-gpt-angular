@@ -1,1 +1,24 @@
-<p>login-screen works!</p>
+<header></header>
+
+<main class="page-container">
+
+  <div class="robo-image"></div>
+
+  <form class="login-container" [formGroup]="loginForm">
+
+    <img class="login-logo" src="imgs/Chat.png" alt="Logo do SenaiGPT." />
+
+    <h1 id="meutitulo" class="titulo">Login</h1>
+
+    <input class="inpt" type="email" placeholder="Insira o e-mail" formControlName="email" />
+    <input class="inpt" type="password" placeholder="Insira a senha" formControlName="password" />
+
+    <button type="button" class="btn" (click)="onLoginClick()">Entrar</button>
+
+    <a class="form-hint" routerLink="/new-user">Clique aqui para se cadastrar.</a>
+
+  </form>
+
+</main>
+
+<footer></footer>
