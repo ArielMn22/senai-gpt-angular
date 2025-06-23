@@ -1,0 +1,41 @@
+.page-container {
+
+    display: flex;
+
+}
+
+h1 {
+
+    font-size: 76px;
+    font-family: "Inter";
+    font-weight: normal;
+    margin-bottom: 16px;
+
+}
+
+.new-user-container {
+
+    display: flex;
+    flex-direction: column; /* deixa o flex em colunas */
+    align-items: center; /* centraliza horizontalmente */
+    justify-content: center; /* centraliza verticalmente */
+    height: 100vh;
+    width: 50vw;
+
+}
+
+.new-user-logo {
+
+    height: 60px;
+
+}
+
+.up-image {
+
+    background-image: url(/imgs/up.jpg);
+    background-size: 175%;
+    background-position: 0% 81%;
+    width: 50vw;
+    height: 100vh;
+
+}

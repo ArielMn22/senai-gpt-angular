@@ -6,18 +6,6 @@ import { ChatScreen } from './chat-module/chat-screen/chat-screen';
 export const routes: Routes = [
     {
         path: "",
-        loadComponent: () => LoginScreen
-    },
-    {
-        path: "login",
-        loadComponent: () => LoginScreen
-    },
-    {
-        path: "new-user",
         loadComponent: () => NewUserScreen
     },
-    {
-        path: "chat",
-        loadComponent: () => ChatScreen
-    }
 ];

@@ -1,1 +1,26 @@
-<p>new-user-screen works!</p>
+<header></header>
+
+<main class="page-container">
+
+  <div class="up-image"></div>
+
+  <div class="new-user-container" [formGroup]="userForm">
+
+    <img class="new-user-logo" src="imgs/Chat.png" alt="Logo do SenaiGPT.">
+
+    <h1 id="meutitulo" class="titulo">Novo usuário</h1>
+
+    <input class="inpt" formControlName="name" type="text" placeholder="Insira o nome do usuário">
+    <input class="inpt" formControlName="email" type="email" placeholder="Insira o e-mail">
+    <input class="inpt" formControlName="password" type="password" placeholder="Insira a senha">
+    <input class="inpt" formControlName="confirmPassword" type="password" placeholder="Insira a senha">
+
+    <button class="btn" (click)="onNewUserClick()">Entrar</button>
+
+    <a class="form-hint" routerLink="/login">Clique aqui para fazer o login</a>
+
+  </div>
+
+</main>
+
+<footer></footer>
