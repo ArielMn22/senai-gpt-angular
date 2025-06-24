@@ -1,1 +1,68 @@
-<p>chat-screen works!</p>
+<div class="container">
+  <button class="btn-toggle-panel" (click)="toggleLeftPanel()">☰</button>
+
+  <header class="left-panel" [class.open]="isLeftPanelOpen">
+    <div class="top">
+      <button class="btn-new-chat" (click)="novoChat()">+ New chat</button>
+      <button
+        *ngFor="let chat of chats"
+        class="btn-chat"
+        (click)="clickChat(chat)"
+      >
+        {{ chat.chatTitle }}
+      </button>
+    </div>
+    <div class="bottom">
+      <button *ngIf="chatSelecionado" class="btn-chat" (click)="deletarChat()">
+        Delete current chat: {{ chatSelecionado.chatTitle }}
+      </button>
+      <button class="btn-chat" (click)="toggleDarkMode()">Light mode</button>
+      <button class="btn-chat" (click)="onLogOutClick()">Log out</button>
+    </div>
+  </header>
+
+  <main class="central-panel">
+    <ng-container *ngIf="!chatSelecionado">
+      <div class="chat-logo">
+        <img [src]="darkMode ? 'imgs/ChatWhite.png' : 'imgs/Chat.png'" />
+      </div>
+
+      <div class="dicas-container">
+        <div class="dicas-item" *ngFor="let i of [0,1,2]">
+          <h2>
+            <img [src]="darkMode ? 'imgs/example-white.svg' : 'imgs/example.svg'" />
+            Examples
+          </h2>
+          <p (click)="userMessage.setValue('Explique como um computador quântico funciona.')">
+            Explique como um computador quântico funciona.
+          </p>
+        </div>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="chatSelecionado">
+      <div class="chat-container">
+        <div class="chat-header">
+          <h2>{{ chatSelecionado.chatTitle }}</h2>
+        </div>
+        <div class="chat-messages">
+          <p
+            *ngFor="let msg of chatSelecionado.messages"
+            [ngClass]="{'message-item': true, 'chatbot': msg.userId === 'chatbot'}"
+          >
+            {{ msg.text }}
+          </p>
+        </div>
+      </div>
+    </ng-container>
+
+    <div class="input-container-1">
+      <input [formControl]="userMessage" placeholder="Type a message." type="text" />
+      <img
+        [src]="darkMode ? 'imgs/send-white.svg' : 'imgs/send.svg'"
+        (click)="enviarMensagem()"
+        alt="Send"
+      />
+    </div>
+  </main>
+</div>
