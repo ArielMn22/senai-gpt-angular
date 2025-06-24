@@ -19,6 +19,7 @@ export class ChatScreen implements OnInit {
   userMessage = new FormControl('');
   isLeftPanelOpen = false;
   darkMode = false;
+  mensagens: any[] = [];
 
   constructor(private chatService: ChatService) {}
 
@@ -56,44 +57,42 @@ export class ChatScreen implements OnInit {
     window.location.href = "/login";
   }
 
-  clickChat(chat: any) {
+  async clickChat(chat: any) {
     this.chatSelecionado = chat;
+    this.mensagens = await this.chatService.getMessagesByChatId(chat.id);
     this.isLeftPanelOpen = false;
   }
 
   async enviarMensagem() {
-    const message = this.userMessage.value?.trim();
-    if (!message) return;
+    const texto = this.userMessage.value?.trim();
+    if (!texto) return;
 
     let chatAtual = this.chatSelecionado;
 
-    if (!this.chatSelecionado) {
+    if (!chatAtual) {
       chatAtual = await this.novoChat();
     }
 
     const userId = localStorage.getItem("meuId");
 
     const novaMensagemUsuario = {
-      userId: crypto.randomUUID(),
-      text: message,
-      id: userId
+      chatId: chatAtual.id,
+      userId,
+      text: texto
     };
 
-    chatAtual.messages.push(novaMensagemUsuario);
-
-    const resposta = "[Mensagem fixa]"; // mock do ChatGPT
+    await this.chatService.adicionarMensagem(novaMensagemUsuario);
 
     const novaRespostaChatGPT = {
-      userId: "chatbot",
-      text: resposta,
-      id: crypto.randomUUID()
+      chatId: chatAtual.id,
+      userId: 'chatbot',
+      text: '[Mensagem fixa]'
     };
 
-    chatAtual.messages.push(novaRespostaChatGPT);
-    this.chatSelecionado = { ...chatAtual };
+    await this.chatService.adicionarMensagem(novaRespostaChatGPT);
 
-    await this.chatService.atualizarChat(chatAtual.id, chatAtual);
     this.userMessage.setValue('');
+    this.mensagens = await this.chatService.getMessagesByChatId(chatAtual.id);
     await this.getChats();
   }
 
@@ -104,22 +103,18 @@ export class ChatScreen implements OnInit {
       return;
     }
 
-    this.isLeftPanelOpen = false;
-
     const userId = localStorage.getItem("meuId");
     const novoChatObj = {
-      id: crypto.randomUUID(),
       chatTitle: nomeChat,
-      messages: [],
       userId
     };
 
-    this.chatSelecionado = novoChatObj;
+    const chatCriado = await this.chatService.criarChat(novoChatObj);
+    this.chatSelecionado = chatCriado;
+    this.mensagens = [];
     this.userMessage.setValue('');
-
-    await this.chatService.criarChat(novoChatObj);
     await this.getChats();
-    return novoChatObj;
+    return chatCriado;
   }
 
   async deletarChat() {

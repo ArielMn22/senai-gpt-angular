@@ -46,10 +46,8 @@
           <h2>{{ chatSelecionado.chatTitle }}</h2>
         </div>
         <div class="chat-messages">
-          <p
-            *ngFor="let msg of chatSelecionado.messages"
-            [ngClass]="{'message-item': true, 'chatbot': msg.userId === 'chatbot'}"
-          >
+          <p *ngFor="let msg of mensagens"
+             [ngClass]="{'message-item': true, 'chatbot': msg.userId === 'chatbot'}">
             {{ msg.text }}
           </p>
         </div>
