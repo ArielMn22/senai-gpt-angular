@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { ChatService } from './chat-service';
 import { CommonModule } from '@angular/common';
+import { firstValueFrom } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-chat-screen',
@@ -21,7 +23,7 @@ export class ChatScreen implements OnInit {
   darkMode = false;
   mensagens: any[] = [];
 
-  constructor(private chatService: ChatService) {}
+  constructor(private chatService: ChatService, private http: HttpClient) { }
 
   ngOnInit(): void {
     const rascunho = localStorage.getItem('rascunhoMensagem');
@@ -65,6 +67,7 @@ export class ChatScreen implements OnInit {
 
   async enviarMensagem() {
     const texto = this.userMessage.value?.trim();
+    
     if (!texto) return;
 
     let chatAtual = this.chatSelecionado;
@@ -83,9 +86,29 @@ export class ChatScreen implements OnInit {
 
     await this.chatService.adicionarMensagem(novaMensagemUsuario);
 
+    await this.getChats();
+
+    // let respostaGPT = await firstValueFrom(this.http.post("https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent", {
+    //   "contents": [
+    //     {
+    //       "parts": [
+    //         {
+    //           "text": texto
+    //         }
+    //       ]
+    //     }
+    //   ]
+    // }, {
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     "X-goog-api-key": "KEY"
+    //   }
+    // })) as any;
+
     const novaRespostaChatGPT = {
       chatId: chatAtual.id,
       userId: 'chatbot',
+      // text: respostaGPT.candidates[0].content.parts[0].text
       text: '[Mensagem fixa]'
     };
 

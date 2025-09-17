@@ -22,7 +22,8 @@
   </header>
 
   <main class="central-panel">
-    <ng-container *ngIf="!chatSelecionado">
+    
+    @if (!chatSelecionado) {
       <div class="chat-logo">
         <img [src]="darkMode ? 'imgs/ChatWhite.png' : 'imgs/Chat.png'" />
       </div>
@@ -38,21 +39,24 @@
           </p>
         </div>
       </div>
-    </ng-container>
+    }
 
-    <ng-container *ngIf="chatSelecionado">
+    @if (chatSelecionado) {
       <div class="chat-container">
         <div class="chat-header">
           <h2>{{ chatSelecionado.chatTitle }}</h2>
         </div>
         <div class="chat-messages">
-          <p *ngFor="let msg of mensagens"
-             [ngClass]="{'message-item': true, 'chatbot': msg.userId === 'chatbot'}">
-            {{ msg.text }}
-          </p>
+
+          @for (msg of mensagens; track $index) {
+            <p class="message-item" [class.chatbot]="msg.userId === 'chatbot'">
+              {{ msg.text }}
+            </p>
+          }
+          
         </div>
       </div>
-    </ng-container>
+    }
 
     <div class="input-container-1">
       <input [formControl]="userMessage" placeholder="Type a message." type="text" />
