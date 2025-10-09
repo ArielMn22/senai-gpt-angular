@@ -2,9 +2,18 @@
 
 Aplicação web em Angular para autenticação de usuários e chat com IA, consumindo uma API hospedada no Azure. Inclui tela de login e cadastro, listagem de chats, troca de mensagens e modo escuro. Projeto publicado na Vercel.
 
-## Link do Projeto (Produção)
+## Link do Projeto
 
 - Acesse: https://senai-gpt-angular-two.vercel.app/login
+
+### Usuário para teste
+
+   - e-mail: front@email.com
+   - senha: frontdomina
+
+## Demonstração
+
+<img height="939" alt="image" src="https://github.com/user-attachments/assets/734545ca-b16e-4e97-9946-5f0b323d5bfa" />
 
 ## Tecnologias
 
@@ -14,7 +23,6 @@ Aplicação web em Angular para autenticação de usuários e chat com IA, consu
 - Reactive Forms (login e cadastro)
 - HttpClient + Interceptor (tratamento de 401)
 - RxJS 7.8
-- Zone.js
 - Testes: Jasmine + Karma
 - Deploy: Vercel (frontend) | Backend: Azure App Service
 
@@ -57,7 +65,7 @@ Dicas:
 - Crie um usuário em `/new-user` e faça login em `/login` para acessar `/chat`.
 - O token é salvo automaticamente no `localStorage` após login.
 
-## Build de Produção
+## Build
 
 ```
 npm run build
