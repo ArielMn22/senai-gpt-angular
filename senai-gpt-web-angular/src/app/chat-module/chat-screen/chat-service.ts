@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
+import { GeminiResponse } from '../../interfaces/gemini-response';
 
 @Injectable({ providedIn: 'root' })
 export class ChatService {
@@ -79,6 +80,24 @@ export class ChatService {
       } catch {
         // ignore
       }
+    }
+  }
+
+  async chatCompletion(prompt: string): Promise<GeminiResponse | null> {
+    // Exclui o chat
+    try {
+      let response = await firstValueFrom(
+        this.http.post<GeminiResponse>(`${this.API}/chat-completion`, { prompt: prompt }, this.getAuthOptions())
+      );
+
+      if (response.candidates) {
+        return response;
+      } else {
+        return null;
+      }
+    } catch {
+      // Se não conseguir deletar o chat, não prossegue (ou trate conforme sua regra)
+      return null;
     }
   }
 }

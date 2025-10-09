@@ -67,7 +67,7 @@ export class ChatScreen implements OnInit {
 
   async enviarMensagem() {
     const texto = this.userMessage.value?.trim();
-    
+
     if (!texto) return;
 
     let chatAtual = this.chatSelecionado;
@@ -88,28 +88,24 @@ export class ChatScreen implements OnInit {
 
     await this.getChats();
 
-    // let respostaGPT = await firstValueFrom(this.http.post("https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent", {
-    //   "contents": [
-    //     {
-    //       "parts": [
-    //         {
-    //           "text": texto
-    //         }
-    //       ]
-    //     }
-    //   ]
-    // }, {
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //     "X-goog-api-key": "KEY"
-    //   }
-    // })) as any;
+    let respostaGPTMessage = "";
+
+    let respostaGPT = await this.chatService.chatCompletion(texto);
+
+    if (!respostaGPT) {
+
+      respostaGPTMessage = "[Mensagem fixa]";
+
+    } else {
+
+      respostaGPTMessage = respostaGPT.candidates[0].content.parts[0].text;
+
+    }
 
     const novaRespostaChatGPT = {
       chatId: chatAtual.id,
       userId: 'chatbot',
-      // text: respostaGPT.candidates[0].content.parts[0].text
-      text: '[Mensagem fixa]'
+      text: respostaGPTMessage,
     };
 
     await this.chatService.adicionarMensagem(novaRespostaChatGPT);
