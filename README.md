@@ -1,94 +1,100 @@
 # Senai GPT Web (Angular)
 
-Aplicação web em Angular para autenticação de usuários e chat com IA, consumindo uma API hospedada no Azure. Inclui tela de login e cadastro, listagem de chats, troca de mensagens e modo escuro. Projeto publicado na Vercel.
+Angular web application for user authentication and AI-powered chat, consuming an API hosted on Azure. Includes login and signup screens, chat list, message exchange, and dark mode. Project deployed on Vercel.
 
-## Link do Projeto
+## Project Link
 
-- Acesse: https://senai-gpt-angular-two.vercel.app/login
+* Access: [https://senai-gpt-angular-two.vercel.app/login](https://senai-gpt-angular-two.vercel.app/login)
 
-### Usuário para teste
+### Test User
 
-   - e-mail: front@email.com
-   - senha: frontdomina
+* Email: [front@email.com](mailto:front@email.com)
+* Password: frontdomina
 
-## Demonstração
+## Demo
 
 <img height="939" alt="image" src="https://github.com/user-attachments/assets/734545ca-b16e-4e97-9946-5f0b323d5bfa" />
 
-## Tecnologias
+## Technologies
 
-- Angular 20 (standalone components)
-- TypeScript 5.8
-- Angular Router (rotas e `CanActivate` guard)
-- Reactive Forms (login e cadastro)
-- HttpClient + Interceptor (tratamento de 401)
-- RxJS 7.8
-- Testes: Jasmine + Karma
-- Deploy: Vercel (frontend) | Backend: Azure App Service
+* Angular 20 (standalone components)
+* TypeScript 5.8
+* Angular Router (routes + `CanActivate` guard)
+* Reactive Forms (login/sign-up)
+* HttpClient + Interceptor (401 handling)
+* RxJS 7.8
+* Tests: Jasmine + Karma
+* Deploy: Vercel (frontend) | Azure App Service (backend)
 
-## Funcionalidades
+## Features
 
-- Autenticação com armazenamento de token em `localStorage` (`meuToken`, `meuId`).
-- Proteção de rota `/chat` via guard (`src/app/auth.guard.ts`).
-- Chat com listagem de conversas e mensagens persistidas pela API.
-- Chamadas ao endpoint `/chat-completion` para obter resposta da IA (modelo Gemini via backend).
-- Modo escuro e persistência de preferências no `localStorage`.
+* Authentication with token stored in `localStorage` (`meuToken`, `meuId`).
+* Route protection for `/chat` via guard (`src/app/auth.guard.ts`).
+* Chat with conversation list and messages persisted through the API.
+* Calls to `/chat-completion` to fetch AI responses (Gemini model via backend).
+* Dark mode with preference saved in `localStorage`.
 
-## Endpoints Consumidos (Backend)
+## Backend Endpoints
 
 Base URL: `https://senai-gpt-api.azurewebsites.net`
 
-- `POST /login` – autenticação
-- `POST /users` – cadastro de usuário
-- `GET /chats`, `POST /chats`, `DELETE /chats/:id`
-- `GET /messages?chatId=...`, `POST /messages`, `DELETE /messages/:id`
-- `POST /chat-completion` – resposta da IA
+* `POST /login` – authentication
+* `POST /users` – user registration
+* `GET /chats`, `POST /chats`, `DELETE /chats/:id`
+* `GET /messages?chatId=...`, `POST /messages`, `DELETE /messages/:id`
+* `POST /chat-completion` – AI response
 
-## Requisitos
+## Requirements
 
-- Node.js 18.19+ (ou 20.x recomendado)
-- npm 9+
+* Node.js 18.19+ (20.x recommended)
+* npm 9+
 
-## Como Rodar Localmente
+## How to Run Locally
 
-1) Instale as dependências:
+1. Install dependencies:
+
 ```
 npm install
 ```
-2) Inicie o servidor de desenvolvimento:
+
+2. Start the development server:
+
 ```
 npm run start
 ```
-3) Acesse `http://localhost:4200/`.
 
-Dicas:
-- Crie um usuário em `/new-user` e faça login em `/login` para acessar `/chat`.
-- O token é salvo automaticamente no `localStorage` após login.
+3. Open `http://localhost:4200/`.
+
+Tips:
+
+* Create a user at `/new-user` and log in at `/login` to access `/chat`.
+* The token is automatically stored in `localStorage` after login.
 
 ## Build
 
 ```
 npm run build
 ```
-Os artefatos serão gerados em `dist/` conforme `angular.json`.
 
-## Scripts Disponíveis
+Artifacts will be generated in `dist/` according to `angular.json`.
 
-- `npm start` – `ng serve` (dev)
-- `npm run build` – build de produção
-- `npm run watch` – build em modo watch (dev)
-- `npm test` – testes unitários (Karma + Jasmine)
+## Available Scripts
 
-## Estrutura (Resumo)
+* `npm start` – `ng serve` (dev)
+* `npm run build` – production build
+* `npm run watch` – watch mode
+* `npm test` – unit tests (Karma + Jasmine)
 
-- `src/app/app.routes.ts` – definição das rotas
-- `src/app/auth.guard.ts` – guard de autenticação
-- `src/app/user-module/login-screen/` – tela de login
-- `src/app/user-module/new-user-screen/` – tela de cadastro
-- `src/app/chat-module/chat-screen/` – tela do chat e `chat-service.ts`
-- `src/app/interfaces/gemini-response.ts` – tipos da resposta da IA
+## Structure (Summary)
 
-## Observações
+* `src/app/app.routes.ts` – route definitions
+* `src/app/auth.guard.ts` – auth guard
+* `src/app/user-module/login-screen/` – login screen
+* `src/app/user-module/new-user-screen/` – sign-up screen
+* `src/app/chat-module/chat-screen/` – chat screen + `chat-service.ts`
+* `src/app/interfaces/gemini-response.ts` – AI response types
 
-- A URL da API está fixa no frontend em `chat-service.ts` e no login (fetch). Ajuste para ambientes diferentes se necessário.
-- O interceptor redireciona para `/login` em respostas `401` e limpa o `localStorage`.
+## Notes
+
+* The API URL is hardcoded in `chat-service.ts` and login logic; adjust if using multiple environments.
+* The interceptor redirects to `/login` on `401` and clears `localStorage`.
